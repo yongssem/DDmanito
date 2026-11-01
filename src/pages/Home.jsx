@@ -7,6 +7,7 @@ import DdakButton from '../components/ddak/DdakButton'
 import PixelGuide from '../components/manito/PixelGuide'
 import { lastTeacherActivity } from '../lib/activity'
 import { MISSIONS } from '../lib/missions'
+import ReleaseNotes from '../components/ReleaseNotes'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ export default function Home() {
   const examples = [MISSIONS[0], MISSIONS[2], MISSIONS[6]]
   return <DdakLayout>
     <DdakHeader title="무무마니또" subtitle="우리 반에 도착한, 하루 하나의 비밀 임무" emoji="🎒" />
-    <main className="landing-main flex-1 max-w-5xl mx-auto w-full px-5 py-8 space-y-7">
+    <main className="landing-main flex-1 max-w-7xl mx-auto w-full px-5 py-8 space-y-7">
       <DdakCard className="landing-hero">
         <div className="hero-copy">
           <span className="ink-badge">학교 태블릿으로도 OK · 회원가입 없이</span>
@@ -28,8 +29,8 @@ export default function Home() {
           <p className="text-xs mt-4">체험은 예시 이름으로 진행해요. 실제 학생 명단은 필요 없어요.</p>
         </div>
         <div className="hero-world">
-          <img src="/images/mumu-village.png" width="1536" height="1024" fetchPriority="high" decoding="async" alt="학교와 우체통, 꽃밭을 오솔길로 잇는 도트 마을. 비밀 친구들이 친절 미션을 하며 탐험해요." />
-          <div className="hero-guide-path"><PixelGuide /></div>
+          <img src="/images/mumu-village.webp" width="1200" height="800" fetchPriority="high" decoding="async" alt="학교와 우체통, 꽃밭을 오솔길로 잇는 도트 마을. 비밀 친구들이 친절 미션을 하며 탐험해요." />
+          <div className="hero-guide-path"><PixelGuide motion="walk" /></div>
           <span className="world-caption ink-badge">무무와 함께 비밀 친구 탐험</span>
         </div>
       </DdakCard>
@@ -68,6 +69,7 @@ export default function Home() {
         <p className="text-sm leading-relaxed mt-5">명단은 교사 브라우저에, 도장은 학생이 사용한 브라우저에 저장돼요. 다른 기기와 기록이 이어지지 않으니 같은 기기로 참여해주세요.</p>
         <p className="text-xs leading-relaxed mt-3">학생은 선생님께 받은 개인 QR로 입장해요. 개인 링크에는 본인과 챙겨줄 친구 정보가 들어 있으니 해당 학생에게만 전달해주세요.</p>
       </DdakCard>
+      <ReleaseNotes />
     </main>
   </DdakLayout>
 }

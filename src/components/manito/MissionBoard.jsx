@@ -17,10 +17,10 @@ export default function MissionBoard({ data, today, completed, onComplete }) {
   const badge = count >= 14 ? '🏅 다정함의 달인' : count >= 7 ? '🧭 우정 탐험가' : count >= 3 ? '🌱 새싹 친구' : '🌰 씨앗 친구'
   const currentIsland = Math.min(4, Math.floor(count / state.duration * 5))
   const mission = state.status === 'active' ? missionForDay(state.day, state.duration) : null
-  return <section className="space-y-5" aria-label="나의 미션 여권">
+  return <section className="mission-dashboard" aria-label="나의 미션 여권">
 
 
-    <DdakCard>
+    <DdakCard className="mission-task">
       <div className="flex justify-between items-center gap-3">
         <h2 className="text-xl">오늘의 비밀 임무</h2>
         <span className="ink-badge">{state.status === 'active' ? `DAY ${state.day}` : state.status === 'upcoming' ? `시작 D-${state.remaining}` : '탐험 완료'}</span>
@@ -47,7 +47,7 @@ export default function MissionBoard({ data, today, completed, onComplete }) {
       </div>}
     </DdakCard>
 
-    <DdakCard className="ink-tint">
+    <DdakCard className="mission-map ink-tint">
       <div className="flex flex-wrap justify-between items-center gap-2">
         <h2 className="text-xl">나의 미션 여권</h2>
         <span className="ink-badge">{badge}</span>
@@ -64,7 +64,7 @@ export default function MissionBoard({ data, today, completed, onComplete }) {
       <progress className="mission-progress w-full h-3 mt-2" value={count} max={state.duration} aria-label="미션 완료 도장" />
     </DdakCard>
 
-    <DdakCard>
+    <DdakCard className="mission-stamps">
       <h2 className="text-lg">친절 도장 모음</h2>
       <p className="text-xs mt-2 mb-4">놓친 날이 있어도 괜찮아요. 오늘부터 다시 시작하면 돼요.</p>
       <ol className="grid grid-cols-7 gap-2" aria-label="날짜별 도장">

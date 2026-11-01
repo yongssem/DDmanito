@@ -54,8 +54,8 @@ function AdventureContent({ hash, demo }) {
 
   return <DdakLayout>
     <DdakHeader title="비밀 친구 탐험" subtitle={data ? `${data.c} · 나만의 초대장` : '초대장을 다시 확인해주세요'} emoji="🗺️" />
-    <main className="flex-1 max-w-xl mx-auto w-full px-5 py-8 space-y-5">
-      {demo && <div className="ink-subcard p-4 flex flex-wrap items-center justify-between gap-3">
+    <main className="student-main flex-1 max-w-7xl mx-auto w-full px-5 py-8">
+      {demo && <div className="demo-banner ink-subcard p-4 flex flex-wrap items-center justify-between gap-3 mb-5">
         <div><h2 className="text-base">🎮 학생 화면 체험 중</h2><p className="text-xs mt-1">예시 이름으로 진행해요. 실제 명단은 필요 없어요.</p></div>
         <DdakButton className="!text-sm" onClick={() => navigate('/teacher')}>우리 반 만들기 →</DdakButton>
       </div>}
@@ -68,8 +68,8 @@ function AdventureContent({ hash, demo }) {
         <p className="text-sm leading-relaxed mt-5">내 초대장이 맞는지 확인해주세요. 다른 친구의 QR이라면 화면을 닫고 선생님께 알려주세요.</p>
         <p className="text-sm leading-relaxed mt-3">{data.start} ~ {data.end} 동안 비밀 친구를 챙겨요. QR이나 링크를 다른 친구에게 전달하지 마세요.</p>
         <DdakButton className="w-full mt-6" onClick={() => setConfirmed(true)}>내 초대장이 맞아요 · 탐험 시작</DdakButton>
-      </DdakCard> : <>
-        <DdakCard>
+      </DdakCard> : <div className="student-layout">
+        <DdakCard className="student-identity">
           <p className="text-sm font-bold">🎒 {data.p[0]}번 {data.p[1]}의 비밀 임무</p>
           <h2 className="text-xl mt-3">내가 챙겨줄 친구는?</h2>
           {visible ? <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="ink-subcard mt-4 p-6 text-center" aria-live="polite">
@@ -80,7 +80,7 @@ function AdventureContent({ hash, demo }) {
           <p className="text-xs mt-4 text-center">{data.start} ~ {data.end} · 한국 시간 기준</p>
         </DdakCard>
         <MissionBoard key={today} data={data} today={today} completed={completed} onComplete={completeMission} />
-      </>}
+      </div>}
     </main>
   </DdakLayout>
 }

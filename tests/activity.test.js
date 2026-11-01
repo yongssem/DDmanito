@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { parseRoster, validateRoster } from '../src/lib/roster.js'
 import { matchManito } from '../src/lib/matching.js'
 import { todayInSeoul, dateNumber, addDays, validatePeriod, activityDay, missionForDay, MISSIONS } from '../src/lib/missions.js'
-import { studentPayload, studentLink, decodeStudentActivity, saveTeacherActivity, loadTeacherActivity, readProgress, progressKey } from '../src/lib/activity.js'
+import { createDemoActivity, isStudentActivity, studentPayload, studentLink, decodeStudentActivity, saveTeacherActivity, loadTeacherActivity, readProgress, progressKey } from '../src/lib/activity.js'
 import { encodeMatching, decodeMatching } from '../src/lib/encode.js'
 
 const students = [{ num: 1, name: '가람' }, { num: 3, name: '가람' }, { num: 7, name: '다온' }]
@@ -110,4 +110,14 @@ test('도장은 활동·학생별로 분리하고 중복·기간 밖·미래 기
 test('엑셀의 마지막 빈 이름과 맨 앞 결번도 보존한다', () => {
   assert.deepEqual(parseRoster('1\t가람\n2\t다온\n3\t\n'), [{ num: 1, name: '가람' }, { num: 2, name: '다온' }, { num: 3, name: '' }])
   assert.deepEqual(parseRoster('\n가람\n다온'), [{ num: 1, name: '' }, { num: 2, name: '가람' }, { num: 3, name: '다온' }])
+})
+
+test('명단 없는 체험은 실제 활동과 분리한 예시 데이터만 사용한다', () => {
+  const demo = createDemoActivity('2026-11-02')
+  assert.ok(isStudentActivity(demo))
+  assert.equal(demo.end, '2026-11-15')
+  assert.equal(demo.c, '무무마니또 체험교실')
+  assert.deepEqual(demo.p, [1, '나'])
+  assert.deepEqual(demo.t, [2, '비밀 친구'])
+  assert.notEqual(progressKey(demo), progressKey(studentPayload(activity, activity.students[0])))
 })

@@ -13,15 +13,7 @@ export default function App() {
     <MotionConfig reducedMotion="user"><BrowserRouter>
       <Toaster
         position="top-center"
-        toastOptions={{
-          style: {
-            background: '#FFF5E1',
-            color: '#4A4A4A',
-            borderRadius: '1rem',
-            border: '1px solid #FFD6E0',
-            fontFamily: 'Pretendard Variable, Pretendard, sans-serif',
-          },
-        }}
+        toastOptions={{ className: 'ink-toast' }}
       />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -30,6 +22,7 @@ export default function App() {
         <Route path="/r/:encoded" element={<StudentReveal />} />
         <Route path="/teacher/share/:activityId" element={<TeacherShare />} />
         <Route path="/s" element={<StudentAdventure />} />
+        <Route path="/demo" element={<StudentAdventure />} />
       </Routes>
     </BrowserRouter></MotionConfig>
   )

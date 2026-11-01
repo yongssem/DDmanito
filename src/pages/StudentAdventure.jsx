@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import DdakLayout from '../components/ddak/DdakLayout'
@@ -8,17 +8,19 @@ import DdakCard from '../components/ddak/DdakCard'
 import DdakButton from '../components/ddak/DdakButton'
 import MissionBoard from '../components/manito/MissionBoard'
 import { trigger } from '../components/ddak/DdakConfetti'
-import { decodeStudentActivity, readProgress, progressKey } from '../lib/activity'
+import { decodeStudentActivity, readProgress, progressKey, createDemoActivity } from '../lib/activity'
 import { todayInSeoul, activityDay } from '../lib/missions'
 
 export default function StudentAdventure() {
-  const { hash } = useLocation()
-  return <AdventureContent key={hash} hash={hash} />
+  const { hash, pathname } = useLocation()
+  const demo = pathname === '/demo'
+  return <AdventureContent key={demo ? "demo" : hash} hash={hash} demo={demo} />
 }
 
-function AdventureContent({ hash }) {
-  const [data] = useState(() => decodeStudentActivity(hash))
-  const [confirmed, setConfirmed] = useState(false)
+function AdventureContent({ hash, demo }) {
+  const navigate = useNavigate()
+  const [data] = useState(() => demo ? createDemoActivity(todayInSeoul()) : decodeStudentActivity(hash))
+  const [confirmed, setConfirmed] = useState(Boolean(demo))
   const [visible, setVisible] = useState(false)
   const [today, setToday] = useState(todayInSeoul)
   const [completed, setCompleted] = useState(() => data ? readProgress(data, todayInSeoul()) : [])
@@ -53,6 +55,10 @@ function AdventureContent({ hash }) {
   return <DdakLayout>
     <DdakHeader title="비밀 친구 탐험" subtitle={data ? `${data.c} · 나만의 초대장` : '초대장을 다시 확인해주세요'} emoji="🗺️" />
     <main className="flex-1 max-w-xl mx-auto w-full px-5 py-8 space-y-5">
+      {demo && <div className="ink-subcard p-4 flex flex-wrap items-center justify-between gap-3">
+        <div><h2 className="text-base">🎮 학생 화면 체험 중</h2><p className="text-xs mt-1">예시 이름으로 진행해요. 실제 명단은 필요 없어요.</p></div>
+        <DdakButton className="!text-sm" onClick={() => navigate('/teacher')}>우리 반 만들기 →</DdakButton>
+      </div>}
       {!data ? <DdakCard>
         <h2 className="text-xl">학생 QR을 다시 받아주세요</h2>
         <p className="text-sm leading-relaxed mt-3">주소가 잘렸거나 올바른 초대장이 아니에요. 선생님께 받은 QR을 다시 스캔해주세요.</p>
@@ -66,14 +72,14 @@ function AdventureContent({ hash }) {
         <DdakCard>
           <p className="text-sm font-bold">🎒 {data.p[0]}번 {data.p[1]}의 비밀 임무</p>
           <h2 className="text-xl mt-3">내가 챙겨줄 친구는?</h2>
-          {visible ? <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mt-4 bg-ddak-lavender/40 rounded-3xl p-6 text-center" aria-live="polite">
+          {visible ? <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="ink-subcard mt-4 p-6 text-center" aria-live="polite">
             <p className="text-sm">{data.t[0]}번</p><p className="font-ssurround text-3xl sm:text-4xl break-words mt-1">{data.t[1]}</p>
             <p className="text-sm mt-3">따뜻한 마음으로 몰래 응원해줘요 🤫</p>
           </motion.div> : <p className="text-sm mt-4">주변에 친구가 없는 곳에서 살짝 확인해요.</p>}
           <DdakButton variant="secondary" className="w-full mt-4" onClick={() => { setVisible(!visible); if (!visible) trigger() }}>{visible ? '🙈 이름 다시 가리기' : '🎁 내 마니또 확인하기'}</DdakButton>
           <p className="text-xs mt-4 text-center">{data.start} ~ {data.end} · 한국 시간 기준</p>
         </DdakCard>
-        <MissionBoard data={data} today={today} completed={completed} onComplete={completeMission} />
+        <MissionBoard key={today} data={data} today={today} completed={completed} onComplete={completeMission} />
       </>}
     </main>
   </DdakLayout>

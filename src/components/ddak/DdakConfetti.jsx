@@ -1,7 +1,7 @@
 import confetti from 'canvas-confetti'
 
-// 뚝딱 시리즈 폭죽: 파스텔 4색으로 마니또 공개 순간 연출
-const DDAK_COLORS = ['#FFD6E0', '#C8E6F5', '#E8D5F2', '#FF8FA3']
+// 무무마니또 폭죽: 잉크 UI 4색으로 마니또 공개 순간 연출
+const DDAK_COLORS = ['#237E7F', '#E8EFDA', '#FFFAEF', '#342C21']
 
 export function trigger() {
   confetti({

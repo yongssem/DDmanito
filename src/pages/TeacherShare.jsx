@@ -20,6 +20,11 @@ function TeacherShareContent({ activityId }) {
     try { await navigator.clipboard.writeText(link); toast.success('해당 학생에게만 전달해주세요.') }
     catch { toast.error('복사할 수 없어요. 카드 아래 링크를 직접 복사해주세요.') }
   }
+  const guideText = activity ? `우리 반 무무마니또 안내 🎒\n활동 기간: ${activity.start} ~ ${activity.end}\n1. 선생님께 받은 내 QR을 학교 태블릿이나 폰으로 열어요.\n2. 내가 챙겨줄 비밀 친구를 확인해요.\n3. 매일 임무 봉투를 열고 교실에서 실천해요.\n4. 실천한 뒤 같은 기기에서 친절 도장을 받아요.\n내 QR은 다른 친구에게 보여주지 않아요. 집에서 따로 접속할 필요는 없어요.` : ''
+  async function copyGuide() {
+    try { await navigator.clipboard.writeText(guideText); toast.success('학생 안내문을 복사했어요.') }
+    catch { toast.error('복사할 수 없어요. 아래 안내문을 직접 복사해주세요.') }
+  }
   return <DdakLayout>
     <div className="print:hidden"><DdakHeader title="학생별 비밀 초대장" subtitle="선생님 전용 · 한 장씩 나눠주세요" emoji="💌" /></div>
     <main className="flex-1 max-w-5xl mx-auto w-full px-5 py-8 print:max-w-none print:p-0">
@@ -37,14 +42,16 @@ function TeacherShareContent({ activityId }) {
           </DdakCard>
           <div className="flex flex-wrap gap-3">
             <DdakButton onClick={() => window.print()}>🖨️ QR 초대장 인쇄 / PDF 저장</DdakButton>
+            <DdakButton variant="secondary" onClick={copyGuide}>📋 학생 안내문 복사</DdakButton>
             <DdakButton variant="secondary" onClick={() => navigate('/')}>홈으로</DdakButton>
           </div>
         </div>
+        <details className="print:hidden mb-5"><summary className="font-bold cursor-pointer">학생 안내문 보기</summary><pre className="ink-subcard mt-3 p-4 whitespace-pre-wrap text-sm font-pretendard">{guideText}</pre></details>
         <h2 className="hidden print:block text-xl mb-4">{activity.c} · 비밀 친구 초대장</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 print:grid-cols-2 print:gap-3">
           {activity.students.map((student) => {
             const link = studentLink(window.location.origin, activity, student)
-            return <article key={student.num} className="qr-invitation rounded-3xl bg-white border-2 border-ddak-pink p-5 text-center break-inside-avoid">
+            return <article key={student.num} className="qr-invitation ink-subcard p-5 text-center break-inside-avoid">
               <p className="text-xs text-ddak-text/70">{activity.c} · 비밀 친구 탐험</p>
               <h3 className="text-lg mt-2">{student.num}번 {student.name}</h3>
               <div className="my-3 flex justify-center"><QRCodeSVG value={link} size={176} level="M" marginSize={4} fgColor="#333333" title={`${student.num}번 ${student.name} 학생 전용 QR`} /></div>
@@ -54,7 +61,7 @@ function TeacherShareContent({ activityId }) {
               <div className="print:hidden mt-4">
                 <DdakButton variant="secondary" className="w-full !py-2 !text-sm" onClick={() => copyLink(link)}>{student.num}번 링크 복사</DdakButton>
                 <details className="mt-3 text-xs text-left"><summary className="cursor-pointer">링크 직접 복사</summary>
-                  <input aria-label={`${student.num}번 학생 링크`} readOnly value={link} onFocus={(e) => e.target.select()} className="w-full rounded-xl border border-ddak-pink p-2 mt-2" />
+                  <input aria-label={`${student.num}번 학생 링크`} readOnly value={link} onFocus={(e) => e.target.select()} className="ink-field mt-2" />
                 </details>
               </div>
             </article>

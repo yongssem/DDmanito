@@ -109,7 +109,7 @@ export default function TeacherSetup() {
                   <DdakInput id={`student-${student.num}`} ref={(el) => { if (el) inputRefs.current[student.num] = el; else delete inputRefs.current[student.num] }} value={student.name} maxLength={30} placeholder="이름" className="flex-1 min-w-0 !px-3 !py-2" onChange={(e) => setStudents((rows) => rows.map((s) => s.num === student.num ? { ...s, name: e.target.value } : s))} onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.nativeEvent.isComposing) { e.preventDefault(); if (students[index + 1]) inputRefs.current[students[index + 1].num]?.focus(); else addRow() }
                   }} />
-                  <button type="button" aria-label={`${student.num}번 행 삭제`} className="rounded-xl p-2 hover:bg-ddak-pink focus-visible:ring-2 focus-visible:ring-ddak-text" onClick={() => setStudents((rows) => rows.filter((s) => s.num !== student.num))}>✕</button>
+                  <button type="button" aria-label={`${student.num}번 행 삭제`} className="ink-icon-button" onClick={() => setStudents((rows) => rows.filter((s) => s.num !== student.num))}>✕</button>
                 </div>)}
               </div>
               <DdakButton variant="secondary" className="w-full mt-4" disabled={students.length >= MAX_STUDENTS} onClick={addRow}>＋ 학생 추가</DdakButton>

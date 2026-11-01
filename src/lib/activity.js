@@ -1,6 +1,6 @@
 import { encodeMatching, decodeMatching } from './encode.js'
 import { validateRoster } from './roster.js'
-import { validatePeriod, dateNumber } from './missions.js'
+import { validatePeriod, dateNumber, addDays } from './missions.js'
 
 const teacherKey = (id) => `ddakmanito:teacher:v2:${id}`
 const validLabel = (value, max) => typeof value === 'string' && value.trim().length > 0 && value.length <= max
@@ -70,4 +70,8 @@ export function readProgress(data, today) {
     return [...new Set(Array.isArray(stored) ? stored.filter((day) => Number.isFinite(dateNumber(day)) &&
       day >= data.start && day <= data.end && day <= today) : [])].sort()
   } catch { return [] }
+}
+
+export function createDemoActivity(today) {
+  return { v: 2, id: 'mumu-demo-v1', c: '무무마니또 체험교실', p: [1, '나'], t: [2, '비밀 친구'], start: today, end: addDays(today, 13) }
 }

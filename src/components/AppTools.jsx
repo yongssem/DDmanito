@@ -59,6 +59,7 @@ export default function AppTools() {
   return <aside className="app-tools print:hidden" aria-label="앱 도구">
     {full && <button type="button" className="ink-button ink-primary fullscreen-exit" onClick={toggleFullscreen}>전체화면 나가기 ✕</button>}
     <div className="flex flex-wrap gap-3 items-center">
+      <a className="ink-button ink-secondary !text-sm" href="/manual.html" target="_blank" rel="noopener noreferrer">사용설명서 / PDF ↗</a>
       <DdakButton variant="secondary" className="!text-sm" onClick={shareApp}>공유하기</DdakButton>
       <DdakButton variant="secondary" className="!text-sm" onClick={copyOfficialLink}>공식 주소 복사</DdakButton>
       {!installed ? <DdakButton variant="secondary" className="!text-sm" aria-expanded={installHelp} aria-controls="install-help" onClick={installApp}>{installPrompt ? '앱 설치하기' : '설치 안내'}</DdakButton> : <span className="ink-badge">설치된 앱에서 사용 중</span>}

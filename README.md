@@ -72,3 +72,9 @@ npm run build
 - [v2 구현 범위와 다음 단계](docs/V2_ROADMAP.md)
 
 © 2026 [무궁무진클래스](https://mumuclass.kr) · 용쌤
+
+## 인쇄용 사용설명서
+
+[HTML 사용설명서](https://manito.schoolkok.com/manual.html)는 글꼴과 아이콘을 포함한 단일 파일입니다. 앱 아래 ‘사용설명서 / PDF’에서 열고 A4 세로·PDF로 저장을 선택하세요. 브라우저 머리글·바닥글은 끄고 배경 그래픽을 켜면 화면 색을 유지합니다. 교사 준비와 학생 참여를 두 쪽에 담았습니다.
+
+완성된 [PDF 인쇄본](https://manito.schoolkok.com/manual.pdf)도 제공합니다. HTML 인쇄 창을 지원하지 않는 내장 브라우저에서는 ‘PDF 파일 받기’를 이용하세요. 브라우저에서 HTML을 직접 인쇄한 결과와 제공 PDF의 글꼴·세부 배치는 다를 수 있습니다.

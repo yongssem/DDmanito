@@ -1,9 +1,9 @@
-// 뚝딱 시리즈 디자인 토큰 (JS에서 참조용 — Tailwind 토큰과 동기화)
+// 기존 토큰 이름은 링크·화면 호환을 위해 유지한다.
 export const ddakColors = {
-  cream: '#FFF5E1',
-  pink: '#FFD6E0',
-  mint: '#C8E6F5',
-  lavender: '#E8D5F2',
-  text: '#4A4A4A',
-  accent: '#FF8FA3',
+  cream: '#FFFAEF',
+  pink: '#E8EFDA',
+  mint: '#E8EFDA',
+  lavender: '#E8EFDA',
+  text: '#342C21',
+  accent: '#237E7F',
 }

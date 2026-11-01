@@ -56,7 +56,7 @@ export default function Share() {
   async function handleShare() {
     try {
       await navigator.share({
-        title: '뚝딱마니또 🌸',
+        title: '무무마니또 🌸',
         text: '우리 반 마니또를 확인해보세요!',
         url: studentLink,
       })
@@ -82,7 +82,7 @@ export default function Share() {
         <DdakCard delay={0.3}>
           <div className="flex justify-center">
             <div className="bg-white p-3 rounded-2xl">
-              <QRCodeSVG value={studentLink} size={220} fgColor="#FF8FA3" bgColor="#FFFFFF" />
+              <QRCodeSVG value={studentLink} size={220} fgColor="#342C21" bgColor="#FFFFFF" />
             </div>
           </div>
           <p className="text-center text-sm text-ddak-text/70 mt-4">

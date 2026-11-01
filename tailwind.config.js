@@ -5,18 +5,18 @@ export default {
     extend: {
       colors: {
         ddak: {
-          cream: '#FFF5E1',
-          pink: '#FFD6E0',
-          mint: '#C8E6F5',
-          lavender: '#E8D5F2',
-          text: '#4A4A4A',
-          accent: '#FF8FA3',
+          cream: '#FFFAEF',
+          pink: '#E8EFDA',
+          mint: '#E8EFDA',
+          lavender: '#E8EFDA',
+          text: '#342C21',
+          accent: '#237E7F',
         },
       },
       fontFamily: {
-        ssurround: ['Cafe24Ssurround', 'sans-serif'],
-        pretendard: ['Pretendard Variable', 'Pretendard', 'sans-serif'],
-        bombom: ['"Nanum Pen Script"', 'cursive'],
+        ssurround: ['Paperlogy', 'system-ui', 'sans-serif'],
+        pretendard: ['Paperlogy', 'system-ui', 'sans-serif'],
+        bombom: ['Paperlogy', 'system-ui', 'sans-serif'],
       },
     },
   },

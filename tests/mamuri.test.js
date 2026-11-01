@@ -5,7 +5,7 @@ import { APP_URL, APP_VERSION, FIRST_DEPLOYED_ON, RELEASES } from '../src/lib/re
 const readJson = (file) => JSON.parse(fs.readFileSync(new URL(file, import.meta.url), 'utf8'))
 
 test('공유 주소와 설치 시작 주소는 학생 정보·교실 토큰을 포함하지 않는다', () => {
-  assert.equal(APP_URL, 'https://d-dmanito.vercel.app/')
+  assert.equal(APP_URL, 'https://manito.schoolkok.com/')
   const manifest = readJson('../public/manifest.webmanifest')
   assert.equal(manifest.start_url, '/')
   assert.equal(manifest.scope, '/')

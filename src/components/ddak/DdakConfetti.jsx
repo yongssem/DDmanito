@@ -1,7 +1,7 @@
 import confetti from 'canvas-confetti'
 
-// 무무마니또 폭죽: 잉크 UI 4색으로 마니또 공개 순간 연출
-const DDAK_COLORS = ['#237E7F', '#E8EFDA', '#FFFAEF', '#342C21']
+// 무무마니또 폭죽: 파스텔 UI 4색으로 마니또 공개 순간 연출
+const DDAK_COLORS = ['#C6E8DC', '#D9D2F0', '#F8DCE8', '#FFE9AF']
 
 export function trigger() {
   confetti({

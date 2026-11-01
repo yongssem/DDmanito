@@ -1,137 +1,44 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Chalkboard } from '@phosphor-icons/react'
 import DdakLayout from '../components/ddak/DdakLayout'
 import DdakHeader from '../components/ddak/DdakHeader'
 import DdakCard from '../components/ddak/DdakCard'
 import DdakButton from '../components/ddak/DdakButton'
-import DdakParticles from '../components/ddak/DdakParticles'
-
-const spring = { type: 'spring', stiffness: 100, damping: 15 }
-
-const features = [
-  { emoji: '✨', title: '회원가입 없음', desc: '그냥 링크만 공유하면 끝' },
-  { emoji: '🔒', title: '개인정보 0', desc: '학생 데이터 어디에도 저장 안 함' },
-  { emoji: '📱', title: '모든 기기 OK', desc: '폰, PC, 태블릿 어디서든' },
-]
-
-const steps = [
-  { n: 1, text: '선생님이 학급 만들고 학생 명단 입력' },
-  { n: 2, text: '매칭 결과 링크를 카톡으로 학생들에게 공유' },
-  { n: 3, text: '학생이 링크 들어가서 자기 이름 누르면 마니또 공개!' },
-]
-
-const v2Items = [
-  { emoji: '📅', text: '공개일까지 카운트다운' },
-  { emoji: '🎯', text: '매일 미션으로 두근두근' },
-]
+import { lastTeacherActivity } from '../lib/activity'
 
 export default function Home() {
   const navigate = useNavigate()
-
-  return (
-    <DdakLayout>
-      <DdakParticles />
-
-      <DdakHeader
-        logoSrc="/logo.png"
-        title="뚝딱마니또"
-        subtitle="비밀 친구와 함께하는 따뜻한 한 달"
-        emoji="🎁"
-        delay={0}
-      />
-
-      <main className="flex-1 max-w-md mx-auto w-full px-6 py-10 space-y-5">
-        {/* 1. 안내 */}
-        <DdakCard delay={0.2}>
-          <p className="font-bombom text-2xl text-center text-ddak-accent leading-relaxed">
-            선생님이 학생 명단으로 마니또를 매칭하고,<br />
-            생성된 링크를 카톡으로 보내면 끝!
-          </p>
-          <p className="text-center text-sm text-ddak-text/60 mt-3">
-            회원가입도, 앱 설치도 필요 없어요
-          </p>
-        </DdakCard>
-
-        {/* 2. 특징 */}
-        <DdakCard delay={0.3}>
-          <h3 className="font-ssurround text-xl text-center mb-4">왜 뚝딱마니또?</h3>
-          <ul className="space-y-3">
-            {features.map((f) => (
-              <li key={f.title} className="flex items-start gap-3">
-                <span className="text-2xl shrink-0">{f.emoji}</span>
-                <div>
-                  <p className="font-bold">{f.title}</p>
-                  <p className="text-sm text-ddak-text/70">{f.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </DdakCard>
-
-        {/* 3. 사용법 */}
-        <DdakCard delay={0.4}>
-          <h3 className="font-ssurround text-xl text-center mb-4">이렇게 사용해요</h3>
-          <ul className="space-y-3">
-            {steps.map((s) => (
-              <li key={s.n} className="flex items-start gap-3">
-                <span className="inline-flex w-7 h-7 shrink-0 rounded-full bg-ddak-pink text-white items-center justify-center text-sm font-bold">
-                  {s.n}
-                </span>
-                <p className="leading-snug pt-0.5">{s.text}</p>
-              </li>
-            ))}
-          </ul>
-        </DdakCard>
-
-        {/* 4. CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.5 }}
-          className="pt-2"
-        >
-          <DdakButton
-            variant="primary"
-            className="w-full text-lg py-4"
-            onClick={() => navigate('/teacher')}
-          >
-            <span className="flex items-center justify-center gap-2">
-              <Chalkboard size={24} weight="bold" />
-              마니또 만들기
-            </span>
-          </DdakButton>
-          <p className="text-center text-sm text-ddak-text/60 mt-3">
-            학생이라면 선생님께 받은 링크로 들어와주세요 🌸
-          </p>
-        </motion.div>
-
-        {/* 5. v2 예고 */}
-        <DdakCard delay={0.6} className="!bg-ddak-lavender/30">
-          <p className="font-bombom text-2xl text-center text-ddak-accent">
-            곧 추가될 기능 ⏰
-          </p>
-          <ul className="space-y-2 mt-4">
-            {v2Items.map((v) => (
-              <li key={v.text} className="flex items-center gap-3">
-                <span className="text-xl">{v.emoji}</span>
-                <span className="text-sm">{v.text}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-center text-sm text-ddak-text/70 mt-4 font-bold">
-            v2에서 만나요!
-          </p>
-          <p className="text-center text-xs text-ddak-text/60 mt-2">
-            <a
-              href="mailto:hello@mumuclass.kr"
-              className="hover:text-ddak-accent transition"
-            >
-              💌 의견 보내주세요
-            </a>
-          </p>
-        </DdakCard>
-      </main>
-    </DdakLayout>
-  )
+  const [lastActivity] = useState(lastTeacherActivity)
+  return <DdakLayout>
+    <DdakHeader logoSrc="/logo.png" title="뚝딱마니또" subtitle="작은 친절이 모이는 우리 반 비밀 친구 탐험" emoji="🎒" />
+    <main className="flex-1 max-w-xl mx-auto w-full px-5 py-8 space-y-5">
+      <DdakCard>
+        <span className="text-xs font-bold rounded-full bg-ddak-mint/60 px-3 py-2">우리 반 우정 퀘스트</span>
+        <h2 className="text-3xl leading-snug mt-5">비밀 친구에게<br />오늘의 친절을 선물해요.</h2>
+        <p className="leading-relaxed text-sm mt-4">학생별 QR로 만나고, 매일 미션을 실천하고,<br />나만의 탐험 여권에 도장을 모아보세요.</p>
+        <DdakButton className="w-full mt-6" onClick={() => navigate('/teacher')}>🧭 선생님 · 탐험 만들기</DdakButton>
+        {lastActivity && <DdakButton variant="secondary" className="w-full mt-3" onClick={() => navigate(`/teacher/share/${lastActivity}`)}>이 브라우저의 최근 QR 목록 열기</DdakButton>}
+        <p className="text-xs text-center mt-4">학생은 선생님께 받은 개인 QR로 입장해주세요.</p>
+      </DdakCard>
+      <div className="grid grid-cols-3 gap-2">
+        {[['💌', '학생별 QR', '한 명에게 한 장씩'], ['📋', '명단 붙여넣기', '엑셀에서 바로'], ['🌟', '매일 미션', '친절 도장 모으기']].map(([emoji, title, desc]) => <div key={title} className="rounded-3xl bg-white/80 border border-ddak-pink/60 text-center px-2 py-5">
+          <p className="text-3xl" aria-hidden="true">{emoji}</p><h3 className="text-sm mt-3">{title}</h3><p className="text-[11px] mt-2">{desc}</p>
+        </div>)}
+      </div>
+      <DdakCard>
+        <h2 className="text-xl">준비는 가볍게, 마음은 따뜻하게</h2>
+        <ol className="space-y-4 mt-5 text-sm">
+          <li><b>01 ·</b> 학급과 활동 기간을 정하고 명단을 붙여넣어요.</li>
+          <li><b>02 ·</b> 학생별 QR 초대장을 인쇄해 한 장씩 나눠요.</li>
+          <li><b>03 ·</b> 비밀 친구를 확인하고 오늘의 미션을 실천해요.</li>
+          <li><b>04 ·</b> 마지막 날 감사 인사를 나누며 함께 마무리해요.</li>
+        </ol>
+      </DdakCard>
+      <DdakCard className="!bg-ddak-lavender/30">
+        <h2 className="text-lg">회원가입·앱 설치 없이 시작해요</h2>
+        <p className="text-sm leading-relaxed mt-3">명단은 교사 브라우저에 저장돼요. 학생 링크에는 본인과 챙겨줄 친구의 정보만 포함되고, 도장은 학생 브라우저에 저장돼요.</p>
+        <p className="text-xs leading-relaxed mt-3">개인 QR은 해당 학생에게만 전달해주세요. 학생 링크를 가진 사람은 그 결과를 볼 수 있어요.</p>
+      </DdakCard>
+    </main>
+  </DdakLayout>
 }

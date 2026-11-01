@@ -10,3 +10,17 @@
     @apply font-ssurround;
   }
 }
+
+.mission-progress { accent-color: #c2778e; }
+.mission-progress::-webkit-progress-bar { background: #fff; border-radius: 999px; }
+.mission-progress::-webkit-progress-value { background: #c2778e; border-radius: 999px; }
+@media print {
+  @page { size: A4; margin: 10mm; }
+  body { background: white; }
+  .qr-invitation { border-color: #aaa; padding: 12px; }
+  .qr-invitation svg { width: 155px; height: 155px; }
+  footer { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

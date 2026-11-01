@@ -5,6 +5,7 @@ const DDAK_COLORS = ['#FFD6E0', '#C8E6F5', '#E8D5F2', '#FF8FA3']
 
 export function trigger() {
   confetti({
+    disableForReducedMotion: true,
     particleCount: 100,
     spread: 70,
     origin: { y: 0.6 },

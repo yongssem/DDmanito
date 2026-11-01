@@ -55,7 +55,7 @@ test('활동 전·첫날·마지막 날·종료 후를 구분한다', () => {
   assert.equal(activityDay(activity.start, activity.end, '2026-11-14').status, 'active')
   assert.equal(activityDay(activity.start, activity.end, '2026-11-15').status, 'ended')
   assert.equal(activityDay(activity.start, activity.start, activity.start).duration, 1)
-  assert.equal(MISSIONS.length, 30)
+  assert.equal(MISSIONS.length, 60)
   assert.equal(missionForDay(1, 14).title, missionForDay(1, 14).title)
   assert.equal(missionForDay(14, 14).title, '마지막 감사 인사')
   assert.ok(missionForDay(59, 60).title)
@@ -120,4 +120,11 @@ test('명단 없는 체험은 실제 활동과 분리한 예시 데이터만 사
   assert.deepEqual(demo.p, [1, '나'])
   assert.deepEqual(demo.t, [2, '비밀 친구'])
   assert.notEqual(progressKey(demo), progressKey(studentPayload(activity, activity.students[0])))
+})
+
+test('최대 활동 기간 동안 서로 다른 기본 미션 60개를 제공한다', () => {
+  assert.equal(new Set(MISSIONS.map((mission) => mission[1])).size, 60)
+  assert.notEqual(missionForDay(1, 60).title, missionForDay(31, 60).title)
+  assert.equal(missionForDay(60, 60).title, '마지막 감사 인사')
+  assert.ok(MISSIONS.every((mission) => mission.length === 3 && mission.every((part) => typeof part === 'string' && part.trim())))
 })

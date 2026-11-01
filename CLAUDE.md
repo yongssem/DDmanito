@@ -18,8 +18,9 @@
 - QR 인쇄물은 흑백으로 출력하며 화면 장식 그림자를 적용하지 않음.
 
 ## 캐릭터·이미지
-- `public/images/mumu-village.png`: 랜딩 도트 마을.
-- `public/images/mumu-guide-sprites.png`: 2×2 걷기 스프라이트. CSS로 프레임 전환.
+- `public/images/mumu-village.webp`: 랜딩 도트 마을.
+- `public/images/mumu-idle.png`, `mumu-walk.webp`: 호흡 24프레임·걷기 4프레임. `src/assets/mumu-motions.json`의 엔진 좌표와 시간을 사용한다.
+- 900px 이상 학교 태블릿·PC 가로 배치를 우선하고 1200px 이상에서 미션·지도 3열 구조를 쓴다. 작은 화면의 가로 넘침을 막는다.
 - 랜딩의 그림 위에 실제 HTML 버튼을 붙이지 않고 별도 명확한 버튼 영역 제공.
 - 미션은 봉투 열기 → 임무 설명 → 실천 → 도장·캐릭터 축하 순서.
 
@@ -27,4 +28,4 @@
 `npm test`, `npm run build`, 휴대폰 가로 넘침, 교사 명단·QR 및 학생 미션 흐름.
 기능 변경 시 `README.md`와 `docs/V2_ROADMAP.md`도 맞춘다.
 
-필수 푸터: © 2026 무궁무진클래스 · 용쌤 (https://mumuclass.kr). 제거하지 않는다.
+필수 푸터 링크: 무궁무진 클래스 X 바이브용샘 (https://mumuclass.kr). 기존 © 2026 무궁무진클래스 · 용쌤도 보존한다.

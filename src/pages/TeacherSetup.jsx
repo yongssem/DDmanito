@@ -74,8 +74,8 @@ export default function TeacherSetup() {
   return (
     <DdakLayout>
       <DdakHeader title="비밀 친구 탐험 만들기" subtitle={`${step} / 3 단계 · 선생님 준비실`} emoji="🧭" />
-      <main className="flex-1 max-w-xl mx-auto w-full px-5 py-8 space-y-5">
-        <motion.div key={step} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+      <main className="flex-1 setup-main max-w-6xl mx-auto w-full px-5 py-8 space-y-5">
+        <motion.div className={`setup-step setup-step-${step}`} key={step} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           {step === 1 && <>
             <DdakCard>
               <h2 className="text-xl mb-5">우리 반 탐험 일정</h2>
@@ -100,7 +100,7 @@ export default function TeacherSetup() {
               <p id="paste-preview" className="text-sm mt-3" aria-live="polite">{parsed?.error || (parsed?.students ? `${parsed.students.filter((s) => s.name).length}명 확인됨 · 적용하면 아래 명단을 바꿔요.` : '붙여넣은 내용은 적용 전에 확인할 수 있어요.')}</p>
               <DdakButton variant="secondary" className="w-full mt-3" disabled={!parsed?.students} onClick={applyPaste}>붙여넣은 명단 적용</DdakButton>
             </DdakCard>
-            <DdakCard className="mt-5">
+            <DdakCard className="setup-roster mt-5">
               <h2 className="text-xl mb-1">학생 명단 확인</h2>
               <p className="text-sm mb-4">결번은 비워두세요. 동명이인은 번호로 구분돼요.</p>
               <div className="space-y-2">
@@ -115,12 +115,12 @@ export default function TeacherSetup() {
               <DdakButton variant="secondary" className="w-full mt-4" disabled={students.length >= MAX_STUDENTS} onClick={addRow}>＋ 학생 추가</DdakButton>
               <p className="text-center text-sm mt-4" aria-live="polite">현재 입력된 학생 <b>{filledCount}명</b></p>
             </DdakCard>
-            <p className="text-xs leading-relaxed mt-4">명단과 교사용 QR 목록은 이 브라우저에 저장해요. 공용 PC에서는 사용 후 브라우저의 사이트 데이터를 삭제해주세요.</p>
-            <div className="flex gap-3 mt-5">
+            <p className="setup-hint text-xs leading-relaxed mt-4">명단과 교사용 QR 목록은 이 브라우저에 저장해요. 공용 PC에서는 사용 후 브라우저의 사이트 데이터를 삭제해주세요.</p>
+            <div className="setup-actions flex gap-3 mt-5">
               <DdakButton variant="secondary" className="flex-1" onClick={() => setStep(1)}>← 이전</DdakButton>
               <DdakButton className="flex-1" disabled={filledCount < 2 || Boolean(paste.trim())} onClick={handleMatch}>✨ 매칭하기</DdakButton>
             </div>
-            {paste.trim() && <p className="text-sm mt-3">붙여넣은 명단을 적용하거나 입력란을 비운 뒤 매칭해주세요.</p>}
+            {paste.trim() && <p className="setup-hint text-sm mt-3">붙여넣은 명단을 적용하거나 입력란을 비운 뒤 매칭해주세요.</p>}
           </>}
           {step === 3 && <>
             <DdakCard>

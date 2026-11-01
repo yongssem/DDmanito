@@ -81,10 +81,10 @@
 .hero-world { position: relative; border: 2px solid var(--ink-text); border-radius: 16px; overflow: hidden; background: var(--ink-pale); box-shadow: 3px 3px 0 var(--ink-text); }
 .hero-world > img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; image-rendering: pixelated; }
 .world-caption { position: absolute; left: 10px; bottom: 10px; background: var(--ink-paper); font-size: 10px; }
-.hero-guide-path { position: absolute; left: 11%; bottom: 21%; animation: mumu-roam 12s steps(32, end) infinite alternate; }
+.hero-guide-path { position: absolute; left: 11%; bottom: 21%; animation: mumu-roam 12s linear infinite; }
 .hero-guide-path .pixel-guide { width: 64px; height: 64px; filter: drop-shadow(0 3px 0 rgba(52,44,33,.2)); }
-.pixel-guide { display: inline-block; position: relative; width: 96px; height: 96px; flex-shrink: 0; vertical-align: middle; animation: mumu-idle 1.2s steps(2, end) infinite; }
-.pixel-guide-sprite { display: block; width: 100%; height: 100%; background-image: url('/images/mumu-guide-sprites.png'); background-size: 200% 200%; background-repeat: no-repeat; image-rendering: pixelated; animation: mumu-walk .8s steps(1, end) infinite; }
+.pixel-guide { display: inline-block; position: relative; width: 96px; height: 96px; flex-shrink: 0; vertical-align: middle;  }
+.pixel-guide-sprite { display: block; width: 100%; height: 100%; background-repeat: no-repeat; image-rendering: pixelated; }
 .pixel-guide--cheer { animation: mumu-cheer .65s ease-in-out 3; }
 .mission-example, .quest-briefing { display: flex; align-items: center; gap: 16px; }
 .mission-example .pixel-guide { width: 104px; height: 104px; }
@@ -92,9 +92,7 @@
 .quest-envelope > .pixel-guide { display: block; margin: 0 auto; width: 128px; height: 128px; }
 .quest-briefing .pixel-guide { width: 88px; height: 88px; }
 .quest-unsealed { animation: mumu-unseal .35s ease-out; }
-@keyframes mumu-walk { 0%, 24.99% { background-position: 0 0; } 25%, 49.99% { background-position: 100% 0; } 50%, 74.99% { background-position: 0 100%; } 75%, 100% { background-position: 100% 100%; } }
-@keyframes mumu-idle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-@keyframes mumu-roam { from { left: 11%; } to { left: 63%; } }
+@keyframes mumu-roam { 0% { left: 11%; opacity: 0; } 5% { opacity: 1; } 90% { opacity: 1; } 100% { left: 63%; opacity: 0; } }
 @keyframes mumu-cheer { 0%, 100% { transform: translateY(0) rotate(0); } 40% { transform: translateY(-14px) rotate(-7deg); } 70% { transform: translateY(-4px) rotate(7deg); } }
 @keyframes mumu-unseal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
@@ -110,3 +108,38 @@
   .pixel-guide, .pixel-guide-sprite, .hero-guide-path, .quest-unsealed { animation: none !important; }
 }
 @media print { .pixel-guide { display: none; } }
+.app-tools { width: calc(100% - 40px); max-width: 960px; margin: 8px auto 0; padding: 20px; border: 2px solid var(--ink-text); border-radius: 16px; background: var(--ink-paper); }
+.fullscreen-exit { position: fixed; z-index: 80; top: 16px; right: 16px; font-size: .85rem; }
+:fullscreen { overflow-y: auto; background: var(--ink-paper); }
+@media print { .app-tools { display: none; } }
+/* 학교 태블릿과 PC에서는 임무를 넓게, 작은 화면에서는 세로로 접는다. */
+@media (min-width: 900px) {
+  .ink-header { max-width: 1240px; display: grid; grid-template-columns: 58px minmax(0,1fr); column-gap: 22px; text-align: left; padding: 22px 28px; }
+  .ink-header-symbol { grid-row: 1 / 4; margin: 0; align-self: center; }
+  .ink-header h1 { grid-column: 2; font-size: 2rem; }
+  .ink-brand, .ink-header-subtitle { grid-column: 2; margin-left: 0; margin-right: 0; }
+  .ink-brand { margin-bottom: 5px; }
+  .ink-header-subtitle { margin-top: 6px; }
+  .landing-hero { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 36px; }
+  .student-layout { display: grid; grid-template-columns: minmax(220px,260px) minmax(0,1fr); gap: 24px; align-items: start; }
+  .student-identity { position: sticky; top: 20px; }
+  .student-identity .ink-button { font-size: .85rem; }
+  .mission-dashboard { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; align-items: start; }
+  .mission-task { grid-column: 1 / -1; }
+  .setup-step-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px; align-items: start; }
+  .setup-step-2 .setup-roster { margin-top: 0; }
+  .setup-step-2 .setup-actions, .setup-step-2 .setup-hint { grid-column: 1 / -1; }
+  .setup-step-1, .setup-step-3 { max-width: 900px; margin: 0 auto; }
+}
+@media (min-width: 1200px) {
+  .mission-dashboard { grid-template-columns: minmax(0,1.3fr) minmax(240px,.85fr); }
+  .mission-task { grid-column: 1; grid-row: 1 / 3; }
+  .mission-map, .mission-stamps { grid-column: 2; }
+  .mission-map { grid-row: 1; }
+  .mission-stamps { grid-row: 2; }
+  .mission-map .ink-badge { font-size: .65rem; }
+}
+@media (max-width: 899px) {
+  .student-layout, .mission-dashboard { display: grid; gap: 24px; }
+}
+.app-tools { max-width: 1240px; }

@@ -27,7 +27,7 @@ function TeacherShareContent({ activityId }) {
   }
   return <DdakLayout>
     <div className="print:hidden"><DdakHeader title="학생별 비밀 초대장" subtitle="선생님 전용 · 한 장씩 나눠주세요" emoji="💌" /></div>
-    <main className="flex-1 max-w-5xl mx-auto w-full px-5 py-8 print:max-w-none print:p-0">
+    <main className="flex-1 max-w-7xl mx-auto w-full px-5 py-8 print:max-w-none print:p-0">
       {!activity ? <DdakCard>
         <h2 className="text-xl">이 브라우저에 QR 목록이 없어요</h2>
         <p className="text-sm mt-3 leading-relaxed">활동을 만든 브라우저에서 열어주세요. 다른 기기로 옮기거나 사이트 데이터를 지웠다면 QR 목록을 다시 만들 수 없어요. 이미 배부한 학생 QR은 계속 사용할 수 있어요.</p>
@@ -48,7 +48,7 @@ function TeacherShareContent({ activityId }) {
         </div>
         <details className="print:hidden mb-5"><summary className="font-bold cursor-pointer">학생 안내문 보기</summary><pre className="ink-subcard mt-3 p-4 whitespace-pre-wrap text-sm font-pretendard">{guideText}</pre></details>
         <h2 className="hidden print:block text-xl mb-4">{activity.c} · 비밀 친구 초대장</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 print:grid-cols-2 print:gap-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 print:grid-cols-2 print:gap-3">
           {activity.students.map((student) => {
             const link = studentLink(window.location.origin, activity, student)
             return <article key={student.num} className="qr-invitation ink-subcard p-5 text-center break-inside-avoid">
